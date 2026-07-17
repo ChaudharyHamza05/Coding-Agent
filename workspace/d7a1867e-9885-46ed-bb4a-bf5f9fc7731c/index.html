@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Signup</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #6a0dad; /* Darker purple */
+            --secondary-color: #8a2be2; /* Blue Violet */
+            --accent-color: #e0b0ff; /* Light purple for highlights */
+            --text-color: #333;
+            --light-text-color: #666;
+            --border-color: #ddd;
+            --focus-border-color: #8a2be2;
+            --bg-gradient-start: #f0f2f5;
+            --bg-gradient-end: #e0e5ec;
+            --card-bg: #ffffff;
+            --shadow-light: rgba(0, 0, 0, 0.08);
+            --shadow-medium: rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+            color: var(--text-color);
+            overflow: hidden; /* Prevent scrollbar during transition */
+        }
+
+        .container {
+            background-color: var(--card-bg);
+            padding: 50px;
+            border-radius: 18px;
+            box-shadow: 0 15px 40px var(--shadow-medium);
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            min-height: 550px; /* Ensure consistent height */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        h2 {
+            margin-bottom: 35px;
+            color: var(--primary-color);
+            font-weight: 700;
+            font-size: 2.2em;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            text-align: left;
+            width: 100%;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 500;
+            color: var(--light-text-color);
+            font-size: 0.95em;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group input[type="password"] {
+            width: calc(100% - 24px); /* Adjust for padding */
+            padding: 14px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            font-size: 1em;
+            color: var(--text-color);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            background-color: #f9f9f9;
+        }
+
+        .form-group input[type="text"]:focus,
+        .form-group input[type="email"]:focus,
+        .form-group input[type="password"]:focus {
+            border-color: var(--focus-border-color);
+            box-shadow: 0 0 0 3px var(--accent-color);
+            outline: none;
+            background-color: #fff;
+        }
+
+        button {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: #fff;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 20px;
+            letter-spacing: 0.5px;
+            box-shadow: 0 8px 20px var(--shadow-light);
+        }
+
+        button:hover {
+            opacity: 0.95;
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px var(--shadow-medium);
+        }
+
+        .toggle-link {
+            margin-top: 30px;
+            font-size: 0.9em;
+            color: var(--light-text-color);
+        }
+
+        .toggle-link a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .toggle-link a:hover {
+            color: var(--primary-color);
+            text-decoration: underline;
+        }
+
+        .form-section {
+            transition: transform 0.7s cubic-bezier(0.68, -0.55, 0.265, 1.55); /* More dynamic transition */
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding: 50px;
+            box-sizing: border-box;
+            background-color: var(--card-bg);
+            border-radius: 18px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .form-section.login {
+            transform: translateX(0%);
+            z-index: 2;
+        }
+
+        .form-section.signup {
+            transform: translateX(100%);
+            z-index: 1;
+        }
+
+        .container.signup-active .form-section.login {
+            transform: translateX(-100%);
+        }
+
+        .container.signup-active .form-section.signup {
+            transform: translateX(0%);
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="formContainer">
+        <div class="form-section login">
+            <h2>Welcome Back!</h2>
+            <form action="#" method="POST">
+                <div class="form-group">
+                    <label for="login-email">Email or Username</label>
+                    <input type="text" id="login-email" name="email_username" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" name="password" required>
+                </div>
+                <button type="submit">Login</button>
+            </form>
+            <p class="toggle-link">Don't have an account? <a href="#" id="showSignup">Sign Up</a></p>
+        </div>
+
+        <div class="form-section signup">
+            <h2>Join Us!</h2>
+            <form action="#" method="POST">
+                <div class="form-group">
+                    <label for="signup-username">Username</label>
+                    <input type="text" id="signup-username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-email">Email</label>
+                    <input type="email" id="signup-email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-password">Password</label>
+                    <input type="password" id="signup-password" name="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-confirm-password">Confirm Password</label>
+                    <input type="password" id="signup-confirm-password" name="confirm_password" required>
+                </div>
+                <button type="submit">Sign Up</button>
+            </form>
+            <p class="toggle-link">Already have an account? <a href="#" id="showLogin">Login</a></p>
+        </div>
+    </div>
+
+    <script>
+        const formContainer = document.getElementById('formContainer');
+        const showSignupLink = document.getElementById('showSignup');
+        const showLoginLink = document.getElementById('showLogin');
+
+        showSignupLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            formContainer.classList.add('signup-active');
+        });
+
+        showLoginLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            formContainer.classList.remove('signup-active');
+        });
+    </script>
+</body>
+</html>
